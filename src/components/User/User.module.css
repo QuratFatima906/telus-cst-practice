@@ -1,0 +1,9 @@
+.Text {
+    vertical-align: middle;
+    text-align: right;
+    margin-right: 10px;
+}
+.Align {
+    display: flex;
+    align-items: center;
+}

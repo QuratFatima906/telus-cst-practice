@@ -1,0 +1,28 @@
+.Green {
+background-color: green;
+}
+
+.Red {
+background-color: red;
+}
+.Orange {
+background-color: orange;
+}
+.Black {
+background-color: black;
+}
+.Grey {
+background-color: grey;
+}
+.Button {
+    /* background-color: black; */
+    color: yellow;
+    padding: 10px;
+    border-radius: 25px;
+}
+.disabledButton {
+    background-color: orange;
+}
+.MuiButton-containedPrimary {
+    background-color: orange;
+}
