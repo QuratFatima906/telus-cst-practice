@@ -1,20 +1,19 @@
 import React from "react";
 
-import "./App.css";
-import { grey } from "@material-ui/core/colors";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "../src/Theme/Theme";
 import Login from '../src/containers/Login';
-
+import Dashboard from "../src/containers/Dashboard";
+import Layout from "../src/Hoc/Layout/Layout";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App" style={{ background: grey[50] }}>
-       <Login />
-      </div>
+      <Layout>
+        <Login />
+        {/* <Dashboard /> */}
+      </Layout>
     </ThemeProvider>
   );
 }
-
 export default App;

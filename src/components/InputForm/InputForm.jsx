@@ -17,7 +17,7 @@ import Button from '../Button/Buttons';
 const styles = {
     root: {
         // height: '62vh',
-        padding: '40px',
+        padding: '20px',
     },
     input: {
         borderRadius: 5,

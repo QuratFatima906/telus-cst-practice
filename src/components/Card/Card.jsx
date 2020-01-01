@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -16,32 +16,50 @@ const styles = {
     },
     Active: {
         background: 'rgba(39, 174, 96, 0.1)',
+        '&:hover': {
+            background: 'rgba(39, 174, 96, 0.1)',
+        },
         borderBottom: '3px solid #27AE60',
-        // '&:hover': {
-        //     background: 'rgba(39, 174, 96, 0.1)',
     },
     Card: {
-        marginLeft: '3px',
-        marginRight: '3px',
-    }
+        marginLeft: '15px',
+        marginTop: '10px',
+    },
+    MarginTop: {
+        marginTop: '15px',
+        margginBottom: 0,
+    },
+
 
 };
 
+
 const CardContainer = props => {
+    let [active, setActive] = useState(props.active);
+    const changeActiveCard = () => {
+        if (active) {
+            return () => setActive(false);
+        }
+        else {
+            return () => setActive(true);
+        }
+    }
     const { classes } = props;
     return (
-        <Grid item xm={12} md={5} spacing={2}>
+        <Grid item md>
             <Card className={classes.Card}>
-                <CardActionArea className={props.active ? classes.Active : classes.root}>
+                <CardActionArea className={active ? classes.Active : classes.root}>
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            Lizard
-          </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
-          </Typography>
-
+                        <Grid container justify="space-between">
+                            <Grid item>
+                                <Typography variant="h5">{props.orgName}</Typography>
+                                <p className={classes.MarginTop}>Total No. of SIMS: <b>{props.numOfSims}</b></p>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="h5">{props.status}</Typography>
+                                <p className={classes.MarginTop}>Total SIMS activated: <b>{props.simsActivated}</b></p>
+                            </Grid>
+                        </Grid>
                     </CardContent>
                 </CardActionArea>
             </Card>

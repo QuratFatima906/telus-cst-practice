@@ -10,14 +10,14 @@ function User(props) {
         <Grid>
             <div className={classes.Align}>
                 <span className={classes.Text}>
-                    <Typography color='textSecondary'>
+                    <Typography>
                         <b>{props.name}</b>
                     </Typography>
                     <Typography>
                         {props.designation}
                     </Typography>
                 </span>
-                <Avatar {...props} />
+                <Avatar src={props.src} />
             </div>
         </Grid>
     );

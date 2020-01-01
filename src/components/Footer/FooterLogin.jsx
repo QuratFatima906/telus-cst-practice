@@ -12,9 +12,6 @@ const styles = {
         minHeight: 160,
         padding: 'auto',
         margin: 'auto',
-        // position: 'fixed',
-        // bottom: 0, 
-        // left: 0,
     },
     content: {
         margin: 'auto',
