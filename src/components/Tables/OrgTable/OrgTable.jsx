@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,43 +8,68 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import axios from '../../../axios';
 
 const columns = [
-  { id: 'name', label: 'Name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
   {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
+    id: 'organization',
+    label: 'Organization',
+    // minWidth: 170
+  },
+  {
+    id: 'reference',
+    label: 'Reference',
+    // minWidth: 100
+  },
+  {
+    id: 'status',
+    label: 'Status',
+    // minWidth: 170,
+    // align: 'right',
     format: value => value.toLocaleString(),
   },
   {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
+    id: 'country',
+    label: 'Country',
+    // minWidth: 170,
+    // align: 'right',
     format: value => value.toLocaleString(),
   },
   {
-    id: 'density',
-    label: 'Density',
-    minWidth: 170,
-    align: 'right',
+    id: 'usage',
+    label: 'Usage',
+    // minWidth: 170,
+    // align: 'right',
     format: value => value.toFixed(2),
   },
+  {
+    id: 'totalSims',
+    label: 'Total Sims',
+    // minWidth: 100
+  },
+  {
+    id: 'activeSims',
+    label: 'Active Sims',
+    // minWidth: 100
+  },
+  {
+    id: 'lastSynced',
+    label: 'Last Synced',
+    // minWidth: 100
+  },
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
+// function createData(organization, reference, status, country) {
+//   const density = population / size;
+//   return { organization, reference, status, country };
+// }
 
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-];
+
+// const rows = [
+//   createData('India', 'IN', 1324171354, 3287263),
+//   createData('China', 'CN', 1403500365, 9596961),
+//   createData('Italy', 'IT', 60483973, 301340),
+// ];
 
 const useStyles = makeStyles({
   root: {
@@ -57,8 +82,14 @@ const useStyles = makeStyles({
 
 export default function StickyHeadTable() {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  let [rows, setRows] = useState(''); 
+
+  useEffect(() => {
+    getData();
+    console.log("useEffect ran...");
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -68,7 +99,22 @@ export default function StickyHeadTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const getData = () => {
+    axios
+      .get('/organization')
+      .then((response) => {
+        const data = response.data.slice(0, 4);
+        let singleRow = data.map(row => {
+          return {
+            ...row
+          };
+        });
+        setRows({ rows: singleRow});
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>

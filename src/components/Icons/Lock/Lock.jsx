@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/styles';
 import LockIcon from '@material-ui/icons/Lock';
 
 
-const styles = {
+const styles = theme => ({
     root: {
         background: '#333333',
         minHeight: 160,
@@ -13,9 +13,10 @@ const styles = {
     },
     colorPrimary: {
         color: '#1b7908',
+        // color: theme.primary,
     }
 
-};
+});
 const Lock = props => {
     const { classes } = props;
     return (

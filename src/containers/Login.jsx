@@ -4,10 +4,10 @@ import Header from '../components/Headers/HeaderLogin/HeaderLogin';
 import FooterLogin from '../components/Footer/FooterLogin';
 import { withStyles } from '@material-ui/styles';
 import InputForm from '../components/InputForm/InputForm';
-import {Typography} from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 const styles = {
-    root: {   
+    root: {
     },
     textField: {
         border: '1px solid #ccc',
@@ -20,10 +20,10 @@ const Login = props => {
         <div>
             <Header />
             <div>
-                <Typography variant='h5' style={{ color: '#33333380', marginTop:'20px', textAlign: 'center'}}>Your TELUS CST Login</Typography>
-                <form className={classes.root} noValidate autoComplete="off">
-                   <InputForm />
-                </form>
+                <Typography variant='h5' style={{ color: '#33333380', marginTop: '20px', textAlign: 'center' }}>Your TELUS CST Login</Typography>
+                {/* <form className={classes.root} noValidate autoComplete="off"> */}
+                    <InputForm />
+                {/* </form> */}
 
             </div>
             <FooterLogin />
@@ -31,4 +31,4 @@ const Login = props => {
     );
 };
 
-export default withStyles(styles) (Login);
+export default withStyles(styles)(Login);

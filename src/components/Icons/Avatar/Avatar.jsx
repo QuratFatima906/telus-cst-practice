@@ -6,7 +6,7 @@ const Avatar = props => {
     let source = '';
     (props.src) ? source = props.src : source = Image;
     return (
-        <AvatarIcon alt="Travis Howard" src={source} />
+        <AvatarIcon alt="User Image" src={source} />
     );
 };
 

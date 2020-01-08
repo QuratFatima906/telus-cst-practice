@@ -2,16 +2,17 @@ import React from 'react';
 import classes from './NavItem.module.css';
 import Dashboard from '../../../Icons/DashboardIcon/DashboardIcon';
 import UserManagement from '../../../Icons/CustomerIcon/CustomerIcon';
+import {Link } from 'react-router-dom';
 const NavItem = props => {
 
     // const { classes } = props;
     let Nav = '';
-    Nav = (props.expanded) ? <a
-        href={props.link}
+    Nav = (props.expanded) ? <Link
+        to={props.link}
         className={props.active ? classes.active : ' '}
         style={{ marginLeft: '10px' }}>
         {props.children}
-    </a> : '';
+    </Link> : '';
 
     let icon = (props.icon === 'dashboard') ? <Dashboard {...props} /> : <UserManagement {...props} />;
 

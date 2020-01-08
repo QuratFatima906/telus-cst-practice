@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from '../../axios';
+import { Redirect } from 'react-router-dom';
 
 import {
     InputBase,
@@ -45,49 +47,83 @@ const styles = {
         marginLeft: '20px',
         margin: 'auto',
     },
-    image: {
-
-    }
 
 };
 
-const InputForm = props => {
+function InputForm(props) {
     const { classes } = props;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function Login() {
+        let Data = {
+            'deviceInfo': {
+                'deviceId': 'NENRNE4434NN34',
+                'deviceType': 'DEVICE_TYPE_WEB',
+                'notificationToken': 'NNENRNE4434NN34'
+            },
+            'email': email,
+            'password': password,
+        }
+        // console.log(props);
+        axios.post('auth/login', Data)
+            .then(res => {
+             localStorage.setItem('token', res.data.token.accessToken);
+             props.history.push('/Dashboard');
+             return <Redirect to='/Dashboard'></Redirect>
+            })
+            .catch(err => {
+                alert(err);
+            });
+    };
+    const handleSubmit = e => {
+        e.preventDefault();
+        // console.log(e.target);
+        Login();
+
+    }
+    // useEffect(Login);
+
     return (
         <div className={classes.root}>
-            <Grid container className={classes.formContainer}>
-                <Grid item className={classes.left} sm={12} md={5}>
-                    <Typography variant='h5' component='h5' style={{ textAlign: 'left', color: '#33333380' }}>Log in</Typography>
-                    <InputLabel style={{ marginTop: '20px', textAlign: 'left' }}>Email/Username</InputLabel>
-                    <InputBase
-                        className={classes.input}
-                        placeholder='Email/Username'
-                        inputProps={{ 'aria-label': 'Email/Username' }}
-                        type='text'
-                    />
-                    <InputLabel style={{ marginTop: '20px', textAlign: 'left' }}>Password</InputLabel>
-                    <InputBase
-                        className={classes.input}
-                        placeholder='Password'
-                        inputProps={{ 'aria-label': 'Email/Username' }}
-                        type='password'
-                    />
-                    <FormGroup row>
+            <form onSubmit={handleSubmit}>
+                <Grid container className={classes.formContainer}>
+                    <Grid item className={classes.left} sm={12} md={5}>
+
+                        <Typography variant='h5' component='h5' style={{ textAlign: 'left', color: '#33333380' }}>Log in</Typography>
+                        <InputLabel style={{ marginTop: '20px', textAlign: 'left' }}>Email/Username</InputLabel>
+                        <InputBase
+                            className={classes.input}
+                            placeholder='Email/Username'
+                            inputProps={{ 'aria-label': 'Email/Username' }}
+                            type='text'
+                            value={email}
+                            onChange={event => setEmail(event.target.value)}
+                        />
+                        <InputLabel style={{ marginTop: '20px', textAlign: 'left' }}>Password</InputLabel>
+                        <InputBase
+                            className={classes.input}
+                            placeholder='Password'
+                            inputProps={{ 'aria-label': 'Email/Username' }}
+                            type='password'
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}
+                        />
                         <FormControlLabel
                             control={<Checkbox />}
                             label="Remember me"
-                            style={{marginTop:'20px', color:'#33333380'}}
+                            style={{ marginTop: '20px', color: '#33333380' }}
                         />
-                    </FormGroup>
-                    <Button background='#1b7908' style={{ marginTop: '20px' }}>Continue</Button>
-                </Grid>
-                <Grid item className={classes.right} sm={12} md={5}>
-                    <Typography variant='h5' style={{ color: '#33333380', marginTop: '40px' }}>Customer Service Toolkit Ver. 4.0</Typography>
-                    <img src={OwlImage} alt='White Owls' className={classes.image}></img>
-                </Grid>
+                        <Button type='submit' background='#1b7908' style={{ marginTop: '20px' }}>Continue</Button>
 
-            </Grid>
+                    </Grid>
+                    <Grid item className={classes.right} sm={12} md={5}>
+                        <Typography variant='h5' style={{ color: '#33333380', marginTop: '40px' }}>Customer Service Toolkit Ver. 4.0</Typography>
+                        <img src={OwlImage} alt='White Owls' className={classes.image}></img>
+                    </Grid>
 
+                </Grid>
+            </form>
         </div>
     );
 };
